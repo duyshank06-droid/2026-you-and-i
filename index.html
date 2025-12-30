@@ -5,6 +5,11 @@
 <title>Tổng Kết 2025 – Chào Đón 2026</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%}
@@ -14,17 +19,16 @@ body{
   justify-content:center;
   align-items:center;
   background:
-    radial-gradient(circle at top, rgba(255,200,120,.07), transparent 45%),
+    radial-gradient(circle at top, rgba(255,200,120,.08), transparent 45%),
     #000;
-  font-family: system-ui, sans-serif;
 }
 
 /* BOOK */
 .book{
   position:relative;
-  width:360px;
-  height:540px;
-  perspective:2000px;
+  width:380px;
+  height:560px;
+  perspective:2600px;
 }
 
 /* PAGE */
@@ -32,19 +36,40 @@ body{
   position:absolute;
   width:100%;
   height:100%;
-  background:#0f0f0f;
-  border-radius:18px;
-  border-left:7px solid rgba(255,215,120,.35);
-  box-shadow:
-    0 30px 60px rgba(0,0,0,.8),
-    inset 0 0 40px rgba(255,215,120,.08);
+  border-radius:20px;
   transform-origin:left center;
   transform-style:preserve-3d;
-  transition:transform 1.8s ease;
-  overflow:hidden;
+  transition:transform 2.2s ease;
+  cursor:pointer;
 }
 
-/* lật trang */
+/* NORMAL PAGE */
+.page.normal{
+  background:#0f0f0f;
+  border-left:8px solid rgba(255,215,120,.35);
+  box-shadow:
+    0 35px 70px rgba(0,0,0,.85),
+    inset 0 0 50px rgba(255,215,120,.1);
+}
+
+/* COVER */
+.page.cover{
+  background:
+    linear-gradient(135deg, #1b1b1b, #050505),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,215,120,.05),
+      rgba(255,215,120,.05) 2px,
+      transparent 2px,
+      transparent 6px
+    );
+  border-left:18px solid #2b2b2b;
+  box-shadow:
+    0 45px 90px rgba(0,0,0,.9),
+    inset 0 0 80px rgba(255,215,120,.2);
+}
+
+/* FLIP */
 .page.flip{
   transform:rotateY(-160deg);
 }
@@ -53,147 +78,169 @@ body{
 .front{
   position:absolute;
   inset:0;
-  padding:36px 32px;
+  padding:42px 36px;
   backface-visibility:hidden;
   display:flex;
   flex-direction:column;
   justify-content:center;
-  text-align:center;
 }
 
 /* TEXT */
 h1{
-  font-size:1.6rem;
-  letter-spacing:.14em;
-  margin-bottom:20px;
+  font-family:'Playfair Display', serif;
+  font-size:1.75rem;
+  letter-spacing:.18em;
+  margin-bottom:26px;
   color:#fff;
-  text-shadow:0 0 18px rgba(255,215,120,.45);
+  text-align:center;
+  text-shadow:0 0 22px rgba(255,215,120,.45);
 }
 
 p{
-  font-size:1rem;
-  line-height:1.9;
-  color:#eee;
-  margin-bottom:24px;
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.15rem;
+  line-height:2.1;
+  color:#f0f0f0;
+  margin-bottom:26px;
 }
 
-/* IMAGE */
 img{
   width:100%;
   height:220px;
   object-fit:cover;
-  border-radius:14px;
-  box-shadow:0 12px 28px rgba(0,0,0,.6);
+  border-radius:16px;
+  box-shadow:0 14px 30px rgba(0,0,0,.65);
 }
 
 .hint{
-  font-size:.75rem;
-  opacity:.5;
-  margin-top:18px;
+  font-family:'Cormorant Garamond', serif;
+  font-size:.8rem;
+  opacity:.45;
+  text-align:center;
+  margin-top:20px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="book">
-  <div class="page" id="pageTop"></div>
-  <div class="page" id="pageBottom"></div>
-</div>
+<div class="book" id="book"></div>
 
 <audio id="music" loop preload="auto">
   <source src="music/all-the-kids-are-depressed.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* ===== NỘI DUNG SÁCH ===== */
 const pages = [
 {
+  type:"cover",
   title:"TỔNG KẾT NĂM 2025",
-  text:`Một năm đã khép lại.
-Không quá ồn ào, không hoàn hảo,
-nhưng là một năm có em trong đó.`,
+  text:`2025 đã trôi qua như một cuốn sách dày.
+Không phải trang nào cũng sáng,
+không phải đoạn nào cũng dễ đọc.
+
+Nhưng trong cuốn sách ấy,
+có những dòng mang tên em,
+khiến anh nhớ mãi.`,
   img:null
 },
 {
+  type:"normal",
   title:"",
-  text:`Giao thừa năm nay yên hơn.
-Anh ngồi giữa khoảnh khắc rất chậm
-và nghĩ về em.`,
+  text:`Giao thừa năm nay rất yên.
+Anh ngồi nhìn thành phố chậm lại,
+và nhận ra — trong suốt một năm dài,
+điều khiến anh bình yên nhất
+là nghĩ về em.`,
   img:"images/images1.jpg"
 },
 {
+  type:"normal",
   title:"",
-  text:`Có những điều anh chưa từng nói ra,
-không phải vì không quan trọng,
-mà vì anh muốn giữ chúng thật lâu.`,
+  text:`Có những ngày mọi thứ mệt mỏi,
+anh từng muốn khép trang lại thật nhanh.
+
+Nhưng em xuất hiện,
+như một dòng chữ đẹp giữa đoạn văn buồn,
+khiến anh muốn đọc chậm hơn,
+và ở lại lâu hơn.`,
   img:"images/2.jpg"
 },
 {
+  type:"normal",
   title:"",
-  text:`Cảm ơn em vì đã ở lại,
-vì đã chọn anh
-theo cách dịu dàng nhất.`,
+  text:`Cảm ơn em vì đã ở đó —
+không ồn ào, không hứa hẹn nhiều,
+chỉ là vẫn ở lại
+khi anh chưa kịp trở nên tốt hơn.`,
   img:"images/3.jpg"
 },
 {
+  type:"normal",
   title:"",
-  text:`Nếu có thể ước một điều,
-anh mong mỗi năm trôi qua,
-mình vẫn còn lật tiếp trang kế bên nhau.`,
+  text:`Nếu mỗi năm là một chương đời,
+anh mong rằng khi lật sang trang mới,
+bàn tay mình vẫn chạm vào nhau,
+và câu chuyện này
+chưa phải là đoạn kết.`,
   img:"images/4.jpg"
 },
 {
+  type:"cover",
   title:"CHÀO ĐÓN 2026",
-  text:`Một chương mới bắt đầu.
-Không cần vội vàng,
-chỉ cần… còn cùng nhau.`,
+  text:`Một cuốn sách mới mở ra.
+Không biết sẽ dài bao nhiêu trang,
+chỉ mong rằng —
+trang đầu tiên,
+vẫn có em trong đó.`,
   img:null
 }
 ];
 
-/* ===== LOGIC LẬT SÁCH ===== */
-const topPage = document.getElementById("pageTop");
-const bottomPage = document.getElementById("pageBottom");
+const book = document.getElementById("book");
 const music = document.getElementById("music");
 
 let index = 0;
 let started = false;
 
-function render(pageEl, data){
-  pageEl.innerHTML = `
+function createPage(data, z){
+  const page = document.createElement("div");
+  page.className = `page ${data.type}`;
+  page.style.zIndex = z;
+
+  page.innerHTML = `
     <div class="front">
       ${data.title ? `<h1>${data.title}</h1>` : ""}
       <p>${data.text.replace(/\n/g,"<br>")}</p>
       ${data.img ? `<img src="${data.img}">` : ""}
-      <div class="hint">Chạm để lật trang</div>
+      <div class="hint">Chạm nhẹ để lật trang</div>
     </div>
   `;
-}
 
-render(topPage, pages[0]);
-render(bottomPage, pages[1]);
-
-topPage.addEventListener("click", async ()=>{
-  if(!started){
-    try{
-      await music.play();
+  page.addEventListener("click", async ()=>{
+    if(!started){
+      await music.play().catch(()=>{});
       music.volume = 0.6;
       started = true;
-    }catch(e){}
-  }
+    }
 
-  topPage.classList.add("flip");
+    page.classList.add("flip");
 
-  setTimeout(()=>{
-    index++;
-    if(index >= pages.length) return;
+    setTimeout(()=>{
+      index++;
+      if(index < pages.length){
+        book.appendChild(createPage(pages[index], pages.length - index));
+      }
+    },2200);
 
-    topPage.classList.remove("flip");
-    render(topPage, pages[index]);
-    render(bottomPage, pages[index+1] || pages[index]);
-  },1800);
-});
+    page.style.pointerEvents = "none";
+  });
+
+  return page;
+}
+
+// INIT
+book.appendChild(createPage(pages[0], pages.length));
 </script>
 
 </body>
